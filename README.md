@@ -47,7 +47,7 @@ You can contact me at any moment:
 
 ## App development  
 
-The goal is to develop a simple shoes online shop. This can all be done in a single page where are able to view all the shoes. Upon clicking in one of them, we should be able to open a small pop-up where we can eventually see the picture bigger and have more information about sizes, colors and if it is in stock or not.
+The goal is to develop a simple products online shop. This can all be done in a single page where are able to view all the shoes. Upon clicking in one of them, we should be able to open a small pop-up where we can eventually see the picture bigger and have more information about sizes, colors and if it is in stock or not.
 
 The user can also add, directly from the shoes grid or in this modal, to the cart.
 
@@ -59,12 +59,12 @@ Upon clicking **"Pay"**, the shoe should be removed from the stock and added to 
 #### Technical Points
 
  1. For the frontend, use any architecture or structure you feel comfortable with.
- 2. If you feel okay with, use a SQL database.
- 3. The developed API needs to have Authorization associated. You can use any strategy but nothing complex is necessary.
+ 2. You should use the following API to fetch products: https://fakestoreapi.com/
+ 3. In addition to it, use any store management library (redux, zustand, etc...) to keep persistent data and mock a database behavior.
 
 
 #### Notes:
 
  1. You can design it, follow a template or use any from a components lib.
- 2. Any technology can be used.
+ 2. Next.js with Typescript should be used.
  3. Fundamental to give a good time estimation for the project. 
