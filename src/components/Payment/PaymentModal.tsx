@@ -1,12 +1,10 @@
-"use client";
-
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useStore from "@/store/store";
 import { Product } from "@/types/product";
 import { User } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PaymentSuccess from "./PaymentSuccess";
 import { useRouter } from "next/navigation";
 
@@ -59,10 +57,15 @@ const PaymentModal: React.FC<{
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<PaymentFormData>({
     resolver: zodResolver(paymentSchema),
     defaultValues: formValues,
   });
+
+  useEffect(() => {
+    reset(formValues);
+  }, [formValues, reset]);
 
   const handlePaymentConfirmation = (data: PaymentFormData) => {
     setPaymentSuccess(true);
@@ -119,6 +122,8 @@ const PaymentModal: React.FC<{
                 id="name"
                 type="text"
                 {...register("name")}
+                value={formValues.name}
+                onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
                 className="w-full p-2 border rounded hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.name && (
@@ -134,6 +139,8 @@ const PaymentModal: React.FC<{
                 id="email"
                 type="email"
                 {...register("email")}
+                value={formValues.email}
+                onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
                 className="w-full p-2 border rounded hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.email && (
@@ -149,6 +156,8 @@ const PaymentModal: React.FC<{
                 id="address"
                 type="text"
                 {...register("address")}
+                value={formValues.address}
+                onChange={(e) => setFormValues({ ...formValues, address: e.target.value })}
                 className="w-full p-2 border rounded hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.address && (
@@ -164,6 +173,8 @@ const PaymentModal: React.FC<{
                 id="cardNumber"
                 type="text"
                 {...register("cardNumber")}
+                value={formValues.cardNumber}
+                onChange={(e) => setFormValues({ ...formValues, cardNumber: e.target.value })}
                 className="w-full p-2 border rounded hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.cardNumber && (
@@ -181,6 +192,8 @@ const PaymentModal: React.FC<{
                 id="expiryDate"
                 type="text"
                 {...register("expiryDate")}
+                value={formValues.expiryDate}
+                onChange={(e) => setFormValues({ ...formValues, expiryDate: e.target.value })}
                 className="w-full p-2 border rounded hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.expiryDate && (
@@ -198,6 +211,8 @@ const PaymentModal: React.FC<{
                 id="cvv"
                 type="text"
                 {...register("cvv")}
+                value={formValues.cvv}
+                onChange={(e) => setFormValues({ ...formValues, cvv: e.target.value })}
                 className="w-full p-2 border rounded hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
               {errors.cvv && (
