@@ -4,14 +4,25 @@ import useStore from "@/store/store";
 import { Product } from "@/types/product";
 import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export interface ProductCardProps {
   product: Product;
-  onSendSelectProduct : (product : Product) => void
+  onSendSelectProduct: (product: Product) => void;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onSendSelectProduct }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  onSendSelectProduct,
+}) => {
   const { addToCart } = useStore();
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    if (!product.rating.count) {
+      setIsDisabled(true);
+    }
+  });
 
   const handleAddToCart = (product: Product) => {
     addToCart({
@@ -21,12 +32,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSendSelectProduct 
       image: product.image,
       quantity: 1,
     });
+    const updatedCart = useStore.getState().cart;
+    const itemCart = updatedCart.find(
+      (productCart) => product.id == productCart.id
+    );
+    if (itemCart && itemCart.quantity == product.rating.count) {
+      setIsDisabled(true);
+    }
   };
 
-  const handleProductClick = (product : Product) => {
-    onSendSelectProduct(product); 
+  const handleProductClick = (product: Product) => {
+    onSendSelectProduct(product);
   };
-
 
   return (
     <div
@@ -53,6 +70,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSendSelectProduct 
         <p className="text-base font-bold text-gray-800">${product.price}</p>
 
         <button
+          disabled={isDisabled}
           onClick={() => handleAddToCart(product)}
           className="flex items-center justify-center rounded bg-gray-800 text-white hover:bg-gray-700 transition px-3 py-2"
         >

@@ -70,11 +70,12 @@ const PaymentModal: React.FC<{
   const handlePaymentConfirmation = (data: PaymentFormData) => {
     setPaymentSuccess(true);
     cart.forEach((productCart) => {
-      const product = parsedProducts.find(
+      const productIndex = parsedProducts.findIndex(
         (p: Product) => p.id === productCart.id
       );
-      if (product) {
-        product.rating.count = product.rating.count - productCart.quantity;
+      if (productIndex != -1) {
+        parsedProducts[productIndex].rating.count = parsedProducts[productIndex].rating.count - productCart.quantity;
+        localStorage.setItem('products', JSON.stringify(parsedProducts));
       }
     });
     cart.forEach((p) => {
